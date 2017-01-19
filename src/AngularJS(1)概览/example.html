@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Demo</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script src="controller.js"></script>
+    <script src="filter.js"></script>
+    <script src="services.js"></script>
+    <script src="directive.js"></script>
+
+</head>
+<body>
+<div class="panel" ng-controller="dayCtrl">
+    <div class="page-header">
+        <h3>AngularJS </h3>
+    </div>
+    <h4 highlight="Wednesday">Today is {{day || "(unkown)" | dayName }}</h4>
+</div>
+    <script>
+var myApp = angular.module('exampleApp', ['exampleApp.Services',
+    'exampleApp.Directive', 'exampleApp.Controllers',
+    'exampleApp.Filters']);
+
+myApp.constant("startTime", new Date().toLocaleTimeString())
+
+myApp.config(function (startTime) {
+    console.log("Main module config:" + startTime)
+});
+
+myApp.run(function (startTime) {
+    console.log("Main module run:" + startTime)
+});
+
+        var now = new Date();
+        myApp.value('nowValue', now);
+    </script>
+</body>
+</html>

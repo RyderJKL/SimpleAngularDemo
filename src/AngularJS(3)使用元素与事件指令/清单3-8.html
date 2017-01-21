@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<!--构建一个待办事项清单程序的骨架-->
+<head>
+    <meta charset="UTF-8">
+    <title>清单3-8</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+			$scope.todos = [
+				{action: "Get groceries", complete: false},
+				{action: "Call Plumber", complete: false},
+				{action: "Buy running shoes", complete: true},
+				{action: "Buy flowers", complete: false},
+				{action: "Call family", complete: false}
+			];
+
+			$scope.buttonNames = ["Red", "Green", "Blue"];
+
+			$scope.settings = {
+				Rows: "Red",
+				Columns: "Green"
+			}
+
+			$scope.data = {
+				rowColor: "Blue",
+				columnColor: "Green"
+			};
+
+			$scope.handleEvent = function (e) {
+				console.log("Event type:" + e.type);
+				$scope.data.columnColor = e.type == "mouseover" ? "Green" : "Blue";
+			}
+		})
+
+
+    </script>
+
+    <style>
+        .Red {
+            background: lightcoral;
+        }
+
+        .Green {
+            background: lightgreen;
+        }
+
+        .Blue {
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<!--事件指令-->
+<div class="panel" ng-controller="defaultCtrl">
+    <h3 class="panel-header">To DO List</h3>
+    <div class="well">
+        <span ng-repeat="button in buttonNames">
+            <button class="btn btn-info" ng-click="data.rowColor = button">{{button}}</button>
+        </span>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Action</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="item in todos " ng-class="data.rowColor"
+            ng-mouseenter="handleEvent($event)"
+            ng-mouseleave="handleEvent($event)">
+            <td>{{$index +1}}</td>
+            <td>{{item.action}}</td>
+            <td ng-class="data.columnColor">{{item.complete}}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+<table class="table">
+    <thead>
+        <th>#</th>
+        <th>Aciton</th>
+        <th>Done</th>
+    </thead>
+    <tr ng-repeat="item in todos" ng-class="$odd ? 'odd' : 'even'">
+        <td>{{$index + 1}}</td>
+        <td ng-repeat="prop in item">{{prop}}</td>
+    </tr>
+</table>
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>清单4-3</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+			$scope.addUser = function (userDetails) {
+				$scope.message = userDetails.name + "(" + userDetails.email +
+					")" + "(" + userDetails.agreed + ")";
+			};
+
+			$scope.message = "Ready";
+
+		})
+    </script>
+    <style>
+        form .ng-invalid.ng-dirty{ background-color:lightpink;}
+        /*交互过，无效类*/
+        form .ng-valid.ng-dirty { background-color: lightgreen;}
+        /*交互过，有效类*/
+        form .ng-invalid-required.ng-dirty { background-color: lightpink;}
+        /* required 无效时样式*/
+        form .ng-invalid-email.ng-dirty { background-color: lightgoldenrodyellow;}
+        /* input email 元素无效时样式 */
+        span.summary.ng-invalid { color: red; font-weight: bold;}
+        /*表单无效提醒*/
+        span.summary.ng-valid { color: green;}
+        /*表单有效提醒*/
+        div.error{ color: red; font-weight: bold;}
+    </style>
+</head>
+<body >
+<div class="panel" ng-controller="defaultCtrl">
+    <form name="myForm" novalidate ng-submit="addUser(newUser)">
+        <!-- 如果使用 mg-model 双向绑定的话，form 元素不是必须的，form 只在表单校验时需要用到-->
+        <!-- 由于不同浏览器校验的差异，使用 novalidate 属性禁用原生浏览器的效验功能，从而开启 AngularJS 的表单校验功能-->
+        <div class="well">
+            <div class="form-group">
+                <label for="">Name:</label>
+                <input type="text" class="form-control" name="userName" required ng-model="newUser.name">
+            </div>
+
+            <div class="form-group">
+                <label for="">Email:</label>
+                <input type="email" name="userEmail" required ng-model="newUser.email" class="form-control">
+                <div class="error" ng-show="myForm.userEmail.$invalid && myForm.userEmail.$dirty">
+                    <!-- 注意此处是如何引用 input 元素以访问特性校验变量的-->
+                    <span ng-show="myForm.userEmail.$error.email">
+                        Please enter a valid email address.
+                    </span>
+                    <span ng-show="myForm.userEmail.$error.required">
+                        Please enter a value.
+                    </span>
+                </div>
+            </div>
+
+            <div class="checkbox">
+                <label for="">
+                    <!-- 将 input 套入 label 标签，是为了使用 Bootstrap 的 checkbox 样式-->
+                    <input type="checkbox" name="agreed" required ng-model="newUser.agreed">
+                    I agree to the terms and conditions.
+                </label>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit" ng-disabled="myForm.$invalid">
+                <!--可以通过 `name` 属性访问 `myForm` 元素的 `$invalid` 变量以校验表单的有效性。-->
+                Ok
+            </button>
+        </div>
+        <div class="well">
+            Message: {{message}}
+            <div>
+                Valid:
+                <span class="summary" ng-class="myForm.$valid? 'ng-valid' : 'ng-invalid'">
+            {{myForm.$valid}}
+        </span>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

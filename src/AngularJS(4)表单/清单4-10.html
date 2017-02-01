@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>清单4-10</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+			$scope.todos = [
+				{id:1, place:"Store", action: "Get groceries", complete: false},
+				{id:2, place:"Home", action: "Call Plumber", complete: false},
+				{id:3, place:"Store", action: "Buy running shoes", complete: true},
+				{id:4, place:"Home", action: "Buy flowers", complete: false},
+				{id:5, place:"Store", action: "Call family", complete: false}
+			];
+
+
+		})
+
+
+    </script>
+</head>
+<body >
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <form novalidate name="myForm">
+        <div class="well">
+            <div class="form-group">
+                <label for="">Select an Action:</label>
+                <select ng-model="selectValue" ng-options="item.id as item.action group by item.place for item in todos">
+                    <option value="">(Pick One)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="well">
+            <p>Selected: {{selectValue || 'None'}}</p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

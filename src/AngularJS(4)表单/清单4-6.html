@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>清单4-6</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {})
+    </script>
+</head>
+<body>
+<div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <form name="myForm" novalidate>
+        <div class="well">
+            <div class="checkbox">
+                <label for="">
+                    <input type="checkbox" name="sample" ng-model="inputValue" ng-true-value="Jack" ng-false-value="Mack">
+                    This is a chexkbox!
+                </label>
+            </div>
+            <div class="well">
+                Model value: {{inputValue}}
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

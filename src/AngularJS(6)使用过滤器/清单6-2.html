@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script>
+		angular.module("exampleApp", [])
+		.controller("simpleCtrl", ["$scope",function ($scope) {
+			$scope.products = [
+				{name:"Apples", category:"Fruit", price:11.20, expiry:10},
+				{name:"Apples", category:"Fruit", price:12.20, expiry:10},
+				{name:"Bananas", category:"Fruit", price:31.20, expiry:10},
+
+				{name:"Tuna", category:"Fish", price:124.20, expiry:10},
+				{name:"Salmon", category:"Fish", price:24.20, expiry:10},
+				{name:"Trout", category:"Fish", price:451.20, expiry:10},
+
+				{name:"Beer", category:"Drinks", price:451.20, expiry:100},
+				{name:"Wine", category:"Drinks", price:1.20, expiry:100},
+				{name:"Whiskey", category:"Drinks", price:1.20, expiry:100},
+			];
+
+			$scope.limitVal = "5";
+			$scope.limitRange = [];
+			for(let i = (0 - $scope.products.length); i <= $scope.products.length;i ++){
+				$scope.limitRange.push(i.toString());
+			}
+
+			$scope.selectItem = null;
+		}])
+    </script>
+</head>
+<body ng-controller="simpleCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>
+            Products
+            <span class="label label-primary">{{products.length}}</span>
+        </h3>
+    </div>
+    <div class="panel-body">
+        Limit: <select ng-model="limitVal" ng-options="item for item in limitRange"></select>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table condensed">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Expiry</td>
+                <td class="text-right">Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in products | limitTo:limitVal | filter:{category: 'Fish'}">
+                <td>{{p.name}}</td>
+                <td>{{p.category}}</td>
+                <td>{{p.expiry}}</td>
+                <td class="text-right">{{p.price | currency:"￥"}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

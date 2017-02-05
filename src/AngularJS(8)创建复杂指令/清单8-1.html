@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+			$scope.products = [
+				{name: "Apples", category: "Fruit", price: 12.20, expiry: 120},
+				{name: "Apples", category: "Fruit", price: 11.20, expiry: 102},
+				{name: "Bananas", category: "Fruit", price: 123.20, expiry: 110},
+			]
+		}).directive("demoDirective", function () {
+			return function (scope, element, attrs) {
+				let items = element.children();
+				for (let i = 0; i < items.length; i++) {
+					if (items.eq(i).text() == "Oranges") {
+						items.eq(i).css({"font-weight": "bold", "color": "red"})
+					}
+				}
+			}
+		})
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<h3>Fruit</h3>
+<ol demo-directive>
+    <li>Apples</li>
+    <li>Oranges</li>
+    <li>Pears</li>
+</ol>
+</body>
+</html>

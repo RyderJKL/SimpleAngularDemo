@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+			$scope.products = [
+				{name: "Apples", category: "Fruit", price: 12.20, expiry: 120},
+				{name: "Apples", category: "Fruit", price: 11.20, expiry: 102},
+				{name: "Bananas", category: "Fruit", price: 123.20, expiry: 110},
+			]
+		}).directive("unorderedList", function () {
+			console.log("dafa")
+			return function (scope, element, attrs) {
+				let data = scope[attrs["unorderedList"]];
+				if (angular.isArray(data)) {
+					let listElem = angular.element("<ul>");
+					element.append(listElem);
+					for (let i = 0; i < data.length; i++) {
+						listElem.append(angular.element('<li>').text(data[i].name));
+					}
+				}
+			}
+		})
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products</h3>
+    </div>
+    <div class="panel-body">
+        <div unordered-list="products"></div>
+    </div>
+</div>
+</body>
+</html>

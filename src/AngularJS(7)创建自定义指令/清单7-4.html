@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html ng-app="exampleApp">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../sass/bootstrap.css">
-    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
-    <script src="../angular.js"></script>
+
+
+			<meta charset="UTF-8">
+				<title>Title</title>
+				<link rel="stylesheet" href="../sass/bootstrap.css">
+				<link rel="stylesheet" href="../sass/bootstrap-theme.css">
+				<script src="../angular.js"></script>
     <script>
 		angular.module("exampleApp", [])
 		.controller("defaultCtrl", function ($scope) {
@@ -13,9 +15,7 @@
 				{name: "Apples", category: "Fruit", price: 12.20, expiry: 120},
 				{name: "Apples", category: "Fruit", price: 11.20, expiry: 102},
 				{name: "Bananas", category: "Fruit", price: 123.20, expiry: 110},
-			];
-
-			$scope.incrementPrices = function () {
+			];	$scope.incrementPrices = function () {
                 for(let i = 0;i < $scope.products.length; i ++){
                 	$scope.products[i].price++;
                 }

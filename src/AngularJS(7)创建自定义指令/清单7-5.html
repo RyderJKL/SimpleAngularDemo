@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="exampleApp">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
 
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+    <script>
+		angular.module("exampleApp", [])
+		.controller("defaultCtrl", function ($scope) {
+
+		}).directive("demoDirective", function () {
+            return function (scope, element, attrs) {
+                let items = element.children();
+                for (let i=0; i < items.length; i ++){
+                	if(items.eq(i).text() == "Oranges") {
+                		items.eq(i).css({
+                			"font-weight":"bold",
+                            "color":"red"
+                        })
+                    }
+                }
+            }
+		})
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products</h3>
+    </div>
+    <ol demo-directive="">
+        <li>Apples</li>
+        <li>Oranges</li>
+        <li>Pears</li>
+    </ol>
+</div>
 </body>
 </html>

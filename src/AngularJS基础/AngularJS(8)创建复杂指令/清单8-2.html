@@ -14,24 +14,31 @@
 				{name: "Apples", category: "Fruit", price: 11.20, expiry: 102},
 				{name: "Bananas", category: "Fruit", price: 123.20, expiry: 110},
 			]
-		}).directive("demoDirective", function () {
-			return function (scope, element, attrs) {
-				let items = element.children();
-				for (let i = 0; i < items.length; i++) {
-					if (items.eq(i).text() == "Oranges") {
-						items.eq(i).css({"font-weight": "bold", "color": "red"})
-					}
-				}
+		}).directive("unorderedList", function () {
+			return {
+				link: function (scope, ele, attrs) {
+					scope.data = scope[attrs["unorderedList"]];
+				},
+				restrict: "A",
+				templateUrl: "tableTemplate.html",
+//                replace: true
 			}
 		})
     </script>
 </head>
 <body ng-controller="defaultCtrl">
-<h3>Fruit</h3>
-<ol demo-directive>
-    <li>Apples</li>
-    <li>Oranges</li>
-    <li>Pears</li>
-</ol>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products</h3>
+    </div>
+    <div class="panel-body">
+        <div unordered-list="products"></div>
+    </div>
+    <div class="panel-body">
+        <div unordered-list="products">
+            This is where the list will go!
+        </div>
+    </div>
+</div>
 </body>
 </html>

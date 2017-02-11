@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../sass/bootstrap.css">
+    <link rel="stylesheet" href="../sass/bootstrap-theme.css">
+    <script src="../angular.js"></script>
+</head>
+<body>
+<script type="text/ng-template" id="scopeTemplate">
+    <div class="panel-body">
+        <!--修改指令模板数据-->
+        <p>Name: {{local}}, City:{{cityFn({local})}}</p>
+    </div>
+</script>
+<script type="text/javascript">
+	angular.module('exampleApp', [])
+	.directive("scopeDemo", function () {
+		return {
+			template: function () {
+				return angular.element(document.querySelector('#scopeTemplate')).html();
+			},
+			scope: {
+				local: '=nameprop',
+                cityFn: "&city"
+			}
+		}
+	}).controller("scopeCtrl", function ($scope) {
+		$scope.data = {
+			name: "Jack",
+		    defaultCity: "China"
+		};
+
+
+		$scope.getCity = function (name) {
+            return name == "Jack" ? $scope.data.defaultCity : "Unknown";
+		}
+	})
+</script>
+<div class="panel panel-default" ng-controller="scopeCtrl" >
+    <div class="panel-body">
+        Direct binding: <input ng-model="data.name">
+    </div>
+    <!--修改指令实例-->
+    <div class="panel-body" scope-demo="" city="getCity(data.name)" nameprop="data.name"></div>
+</div>
+</body>
+</html>
